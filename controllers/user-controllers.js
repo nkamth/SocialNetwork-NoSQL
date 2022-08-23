@@ -47,7 +47,7 @@ const userController = {
 
   //   Update User
   updateUser(req, res) {
-    User.findOneAndUpdate({ _id: req.params.userId }, body, {
+    User.findOneAndUpdate({ _id: req.params.userId }, req.body, {
       new: true,
       runValidators: true,
     })
@@ -66,27 +66,19 @@ const userController = {
 
   //   delete user
   deleteUser(req, res) {
-    User.findByIdAndDelete({ _id: req.parama.userId })
-      .then((dbUser) => {
-        dbUser.thoughts.forEach((thought) => {
-          Thoughts.findOneAndDelete({ _id: thought })
-            .then((dbThoughtData) => {
-              if (!dbThoughtData) {
-                res.status(500).json({ message: "There was an error" });
-                return;
-              }
-              res.json(dbUser);
-            })
-            .catch((err) => {
-              console.log(err);
-              res.status(400).json(err);
-            });
-        });
+    User.findOneAndDelete({ _id: req.params.userId })
+      .then((dbUserData) => {
+        if (!dbUserData) {
+          return res.status(404).json({ message: "No user with this id!" });
+        }
+        // BONUS: get ids of user's `thoughts` and delete them all
+        // $in to find specific things
+        return Thoughts.deleteMany({ _id: { $in: dbUserData.thoughts } });
       })
-      .catch((err) => {
-        console.log(err);
-        res.status(400).json(err);
-      });
+      .then(() => {
+        res.json({ message: "User and associated thoughts deleted!" });
+      })
+      .catch((err) => res.json(err));
   },
 
   //   add Friend
