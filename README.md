@@ -4,7 +4,13 @@
 
 The below link is a demonstration of how the API works using Insomnia.
 
-View a complete Video demonstrarion of the application: [SocialNetwork-API]()
+View a complete Video demonstrarion of the application:
+
+- PART 1 :All user API routes , Friends API routes and Bonus : Application deletes a user's associated thoughts when the user is deleted
+  [SocialNetwork-API PART1](https://drive.google.com/file/d/15CYqfeyKVBqos2YXqnkuoaV3k6Zs9KV1/view)
+
+- PART 2: All the Thoughts API routes and reaction API routes
+  [SocialNetwork-API PART2](https://drive.google.com/file/d/1d3eq-BoIDxrMvi65cspeEePX33rAfTIO/view)
 
 ## Table of Contents
 
